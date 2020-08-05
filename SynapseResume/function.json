@@ -1,0 +1,11 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "resumetimer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "%SynapseResumeTime%"
+    }
+  ]
+}
