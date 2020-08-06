@@ -30,7 +30,7 @@ def main(resumetimer: func.TimerRequest) -> None:
   logging.info('Getting a token...')
   azToken = utils.get_az_token(TenantId, AppId, SecretId)
 
-  pause_synapse(SubscriptionId, azToken, ResourceGroupName, ServerName, DatabaseName)
+  resume_synapse(SubscriptionId, azToken, ResourceGroupName, ServerName, DatabaseName)
   logging.info('Synapse Pool resumed at %s', utc_timestamp)
 
 def resume_synapse(subscription, token, resourceGroup, server, database):
