@@ -42,14 +42,14 @@ This is a small project to schedule pausing and resuming of an various Azure res
 
 To automate the deployment of these Azure Functions (with Terraform or Azure RM templates), the Function apps are expected in a zip file. The zip command used is:
 ```
-zip -r ../AzureStartStopInfra.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\*
+zip -r ../AzureStartStopInfra.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\* venv/\*
 ```
 To exclude specific functions depending on the target environments, such examples could be used:
 ```
 # in UAT
-zip -r ../AzureStartStopInfraUAT.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\*
+zip -r ../AzureStartStopInfraUAT.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\* venv/\*
 # in PROD
-zip -r ../AzureStartStopInfraPROD.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\* AKSPause/\* AKSResume/\*
+zip -r ../AzureStartStopInfraPROD.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\* venv/\* AKSPause/\* AKSResume/\*
 ```
 
 # Useful commands
