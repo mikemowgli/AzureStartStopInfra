@@ -2,6 +2,7 @@
 
 This is a small project to schedule pausing and resuming of an various Azure resources with Azure Functions. It currently handles
 * Pause and resume of a Synapse Pool (given its name, server name, and resource group)
+* Pause and resume of an Analysis Services instance (given its name and resource group)
 * Start and stop of AKS cluster (will act on all VM scale sets associated with all AKS clusters in a given resource group)
 * Start and stop of a VM (given its name and resource group)
 
@@ -9,6 +10,8 @@ This is a small project to schedule pausing and resuming of an various Azure res
 
 * SynapsePause
 * SynapseResume
+* AnalysisServicesPause
+* AnalysisServicesResume
 * AKSPause
 * AKSResume
 * VMPause
@@ -21,7 +24,7 @@ This is a small project to schedule pausing and resuming of an various Azure res
 * SubscriptionId: the subscription ID of the resource group
 * DatabaseServerName: The name of the server where the Synapse pool lives
 * DatabaseName: The name of the Synapse pool
-* SynapseAppId: The Application ID of the Service Principal that triggers the Synapse pause/resume actions
+* SynapseAppId: The Application ID of the Service Principal that triggers the Synapse (and Analysis Services) pause/resume actions
 * SynapseSecretId: The Secret ID of the Service Principal
 * VMOpsAppId: The Application ID of the Service Principal that stops/starts the VM and AKS clusters
 * VMOpsSecretId: The Secret ID of the Service Principal
@@ -31,12 +34,22 @@ This is a small project to schedule pausing and resuming of an various Azure res
 * AKSResumeTime: The cron formatted schedule to start the AKS clusters
 * VMPauseTime: The cron formatted schedule to stop the VM
 * VMResumeTime: The cron formatted schedule to start the VM
+* AnalysisServicesPauseTime: the cron formatted schedule to pause the Analysis Services instance, in UTC.
+* AnalysisServicesResumeTime: the cron formatted schedule to resume the Analysis Services instance, in UTC.
+* AnalysisServiceInstanceName: the name of the Analysis Services instance
 
 # zipping
 
 To automate the deployment of these Azure Functions (with Terraform or Azure RM templates), the Function apps are expected in a zip file. The zip command used is:
 ```
-zip -r ../SynapseAutoPause.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\*
+zip -r ../AzureStartStopInfra.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\*
+```
+To exclude specific functions depending on the target environments, such examples could be used:
+```
+# in UAT
+zip -r ../AzureStartStopInfraUAT.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\*
+# in PROD
+zip -r ../AzureStartStopInfraPROD.zip . -x \.gitignore \local.settings.json .git/\* azure-functions-core-tools/\* releases/\* AKSPause/\* AKSResume/\*
 ```
 
 # Useful commands
